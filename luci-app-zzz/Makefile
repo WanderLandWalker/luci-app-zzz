@@ -7,6 +7,8 @@ PKG_RELEASE:=2
 LUCI_TITLE:=LuCI support for ZZZ 802.1x Authentication Client
 LUCI_DEPENDS:=+zzz +luci-base
 LUCI_PKGARCH:=all
+PKG_VERSION:=2.0.1
+PKG_RELEASE:=1
 
 include $(TOPDIR)/feeds/luci/luci.mk
 
