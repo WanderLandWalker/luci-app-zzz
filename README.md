@@ -10,7 +10,7 @@ Supports OpenWRT versions 21.02.0 to 25.12.0
 
 ## How to use
 
-- Step 0: Make sure you have an ``openwrt router``, ``download the ipk or apk`` in Releases in this project, and ``upload and install`` it in the system-package of the Luci background.
+- Step 0: Please ensure you have an ``OpenWRT router``. ``Download the .ipk or .apk`` file from the Releases section of this project, ``upload it, and install it`` into the system packages in the Luci backend. Alternatively, ``add the project's source`` to your router; see the bottom of this readme for details.
 - Step 1：Fill in the user name: Student ID@operator. For example, ``212306666@cucc``, China Unicom is cucc, mobile is cmcc, and telecom is ctcc.
 - Step 2: Fill in the password. The ``initial password`` is the last six digits of the ID card by default. It can be modified in the official client.
 - Step 3: Select your network card; generally speaking, you can use ``ip addr`` to view the network card that has been assigned an IP, such as eth1.
@@ -21,7 +21,7 @@ Supports OpenWRT versions 21.02.0 to 25.12.0
 
 - First clone this repository to the package directory of the openwrt you want to compile:
 
-```
+```bash
 ## Add feed
 echo "src-git zzz https://github.com/Dichgrem/luci-app-zzz.git" >> feeds.conf.default
 ## Update and install feed
@@ -31,20 +31,24 @@ echo "src-git zzz https://github.com/Dichgrem/luci-app-zzz.git" >> feeds.conf.de
 - Then select ``Network->zzz`` and ``LuCI->Applications->luci-app-zzz`` in make menuconfig and change them to "M" state;
 
 - Finally, run
-```
+
+```bash
 make package/luci-app-zzz/clean V=s
 make package/luci-app-zzz/compile V=s
 ```
+
 and
-```
+
+```bash
 make package/zzz/clean V=s
 make package/zzz/compile V=s
 ```
+
 to start build.
 
 - You can use this command to find the compiled packages:
 
-```
+```bash
 ❯ find bin/ -name "zzz*.ipk"
 bin/packages/x86_64/base/zzz_1.0.0-r1_x86_64.ipk
 ❯ find bin/ -name "luci-app-zzz*.ipk"
@@ -55,13 +59,30 @@ bin/packages/x86_64/base/luci-i18n-zzz-zh-cn_26.063.52301~6e658ac_all.ipk
 
 or if you are use 25.x version:
 
-```
+```bash
 ❯ find bin/ -name "zzz*.apk"
 bin/packages/aarch64_cortex-a53/zzz/zzz-2.0.1-r1.apk
 ❯ find bin/ -name "luci-app-zzz*.apk"
 bin/packages/aarch64_cortex-a53/zzz/luci-app-zzz-2.0.1-r1.apk
 ❯ find bin/ -name "luci-i18n-zzz*.apk"
 bin/packages/aarch64_cortex-a53/zzz/luci-i18n-zzz-zh-cn-26.064.09925~74381fd.apk
+```
+
+## Add Feeds
+
+Replace `ARCH` with your device architecture (`x86_64` / `aarch64_cortex-a53` / `mipsel_24kc`):
+
+```bash
+# Trust public key
+wget -O /etc/apk/keys/zzz.pem \
+    https://Dichgrem.github.io/luci-app-zzz/ARCH/key.pub.pem
+
+# Add repository source
+echo "https://Dichgrem.github.io/luci-app-zzz/ARCH/packages.adb" \
+    >> /etc/apk/repositories
+
+# Install
+apk update && apk add luci-app-zzz
 ```
 
 ## Acknowledgements
