@@ -5,72 +5,81 @@
 
 # luci-app-zzz
 
-**luci-app-zzz** is a LuCI front-end for **zzz**, an open-source implementation of the **H3C 802.1X campus network client** for OpenWrt.
+**luci-app-zzz** 是 **zzz** 的 LuCI 前端界面，而 **zzz** 是一个在 OpenWrt 上运行的 **H3C 802.1X 校园网客户端的开源实现**。
 
-Supports OpenWrt versions **21.02.0 to 25.12.0**.
+支持 OpenWrt **21.02.0 到 25.12.0** 版本。
 
 <p align="center">
   <img src="https://github.com/Dichgrem/luci-app-zzz/blob/main/screenshot.png" width="400">
 </p>
 
-## How to use
+## 使用方法
 
-- **Step 0:** Make sure you have an **OpenWrt router**. Download an `.ipk` or `.apk` file from the **Releases** section of this project, upload it, and install it through the **LuCI package manager**.  
-  Alternatively, you can add this project's feed to your router; see the bottom of this README for details.
+- **步骤 0：** 确保你拥有一台 **OpenWrt 路由器**。  
+  从本项目的 **Releases** 页面下载 `.ipk` 或 `.apk` 文件，上传并通过 **LuCI 软件包管理器**安装。  
+  或者你也可以将本项目的软件源添加到路由器中；具体方法见本文档底部。
 
-- **Step 1:** Fill in the **username** in the format `StudentID@operator`.  
-  For example: `212306666@cucc`.  
-  China Unicom uses `cucc`, China Mobile uses `cmcc`, and China Telecom uses `ctcc`.
+- **步骤 1：** 填写 **用户名**，格式为 `学号@运营商`。  
+  例如：`212306666@cucc`。  
 
-- **Step 2:** Enter the password. By default, the **initial password** is the last six digits of your ID card. It can be changed in the official client.
+  运营商代码如下：
 
-- **Step 3:** Select your network interface. Usually, you can run `ip addr` to find the interface that has been assigned an IP address (for example `eth1`).
+  - 中国联通：`cucc`
+  - 中国移动：`cmcc`
+  - 中国电信：`ctcc`
 
-- **Step 4:** Start the service and check whether you can access the Internet. Then enable **scheduled startup**, because the campus network is usually unavailable from **00:00 to 07:00**.
+- **步骤 2：** 输入密码。  
+  默认情况下，**初始密码**为身份证后 **6 位**，可以在官方客户端中修改。
 
-- **Finally:** Enjoy!
+- **步骤 3：** 选择你的网络接口。  
+  通常可以运行 `ip addr` 查看已经获取 IP 地址的接口，例如 `eth1`。
+
+- **步骤 4：** 启动服务并检查是否可以访问互联网。  
+  之后可以启用 **定时启动**，因为校园网通常在 **00:00 到 07:00** 之间关闭。
+
+- **完成：** 享受使用！
 
 ---
 
-## How to build
+## 编译方法
 
-First, add this repository to the OpenWrt feeds:
+首先将本仓库添加到 OpenWrt 的 feeds：
 
 ```bash
-## Add feed
+## 添加 feed
 echo "src-git zzz https://github.com/Dichgrem/luci-app-zzz.git" >> feeds.conf.default
 
-## Update and install feed
+## 更新并安装
 ./scripts/feeds update
 ./scripts/feeds install luci-app-zzz zzz
 ````
 
-Then select:
+然后在 `make menuconfig` 中选择：
 
 ```
 Network → zzz
 LuCI → Applications → luci-app-zzz
 ```
 
-in `make menuconfig` and set them to **M**.
+并将它们设置为 **M**。
 
-Finally run:
+最后运行：
 
 ```bash
 make package/luci-app-zzz/clean V=s
 make package/luci-app-zzz/compile V=s
 ```
 
-and
+以及
 
 ```bash
 make package/zzz/clean V=s
 make package/zzz/compile V=s
 ```
 
-to start the build.
+开始编译。
 
-You can use the following commands to locate the compiled packages:
+可以使用以下命令查找编译完成的软件包：
 
 ```bash
 find bin/ -name "zzz*.ipk"
@@ -83,7 +92,7 @@ find bin/ -name "luci-i18n-zzz*.ipk"
 bin/packages/x86_64/base/luci-i18n-zzz-zh-cn_26.063.52301~6e658ac_all.ipk
 ```
 
-Or if you are using **OpenWrt 25.x**:
+如果你使用的是 **OpenWrt 25.x**：
 
 ```bash
 find bin/ -name "zzz*.apk"
@@ -98,44 +107,45 @@ bin/packages/aarch64_cortex-a53/zzz/luci-i18n-zzz-zh-cn-26.064.09925~74381fd.apk
 
 ---
 
-## Add Feeds
+## 添加软件源
 
-Replace `ARCH` with your device architecture (`x86_64` / `aarch64_cortex-a53`).
+将 `ARCH` 替换为你的设备架构（例如 `x86_64` / `aarch64_cortex-a53`）。
 
-### APK (OpenWrt 25.12+)
+### APK（OpenWrt 25.12+）
 
 ```bash
-# Trust public key
+# 信任公钥
 wget -O /etc/apk/keys/zzz.pem \
     https://Dichgrem.github.io/luci-app-zzz/apk/ARCH/key.pub.pem
 
-# Add repository source
+# 添加软件源
 echo "https://Dichgrem.github.io/luci-app-zzz/apk/ARCH/packages.adb" \
     >> /etc/apk/repositories
 
-# Install
+# 安装
 apk update && apk add luci-app-zzz
 ```
 
-### IPK (OpenWrt 24.10 / opkg)
+### IPK（OpenWrt 24.10 / opkg）
 
 ```bash
-# Trust public key
+# 信任公钥
 wget -O /etc/opkg/keys/47620a6da8acd29e \
   https://Dichgrem.github.io/luci-app-zzz/ipk/aarch64_cortex-a53/key-build.pub
 
-# Add repository source
+# 添加软件源
 echo "src/gz zzz https://Dichgrem.github.io/luci-app-zzz/ipk/ARCH" \
     >> /etc/opkg/customfeeds.conf
 
-# Install
+# 安装
 opkg update && opkg install luci-app-zzz
 ```
 
 ---
 
-## Acknowledgements
+## 致谢
 
 * [https://github.com/diredocks/zzz](https://github.com/diredocks/zzz)
 * [https://github.com/diredocks/nyn](https://github.com/diredocks/nyn)
 * [https://github.com/bitdust/njit8021xclient](https://github.com/bitdust/njit8021xclient)
+
