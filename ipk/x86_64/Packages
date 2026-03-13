@@ -6,19 +6,19 @@ URL: https://github.com/openwrt/luci
 Architecture: all
 Installed-Size: 20480
 Filename: luci-app-zzz_2.0.2-r1_all.ipk
-Size: 4040
-SHA256sum: b278c7cca7303b9be8600390e79c5f0396452c136abc4da8855ab7473256882a
+Size: 4050
+SHA256sum: 601be6b737dc33f2ebfc70a3e8e4d131e04c7c09591902035eecf8662800290b
 Description:  LuCI support for ZZZ 802.1x Authentication Client
 
 Package: luci-i18n-zzz-zh-cn
-Version: 26.072.18002~9b52f18
+Version: 26.072.32799~f9c5a62
 Depends: libc, luci-app-zzz
 Section: luci
 Architecture: all
 Installed-Size: 10240
-Filename: luci-i18n-zzz-zh-cn_26.072.18002~9b52f18_all.ipk
-Size: 1961
-SHA256sum: b2b5cbab04cda5bf95929f84bd261a43549bc24cb80981b892f54c2ae85758d8
+Filename: luci-i18n-zzz-zh-cn_26.072.32799~f9c5a62_all.ipk
+Size: 1957
+SHA256sum: 3f43e1aa77fe7651396bd67e8a19a1dba14cfe50fe66fcb49e267bd38a6e61cf
 Description:  Translation for luci-app-zzz - 简体中文 (Simplified Chinese)
 
 Package: zzz
@@ -30,8 +30,8 @@ URL: https://github.com/diredocks/zzz
 Architecture: x86_64
 Installed-Size: 51200
 Filename: zzz_2.0.2-r1_x86_64.ipk
-Size: 21427
-SHA256sum: 2b492356a016b40991a375f076adcdef9719c42de90f2899324c22dc74cfb828
+Size: 21434
+SHA256sum: eb4ec8813da88968e6393f541f42d4766de5c73f02ef551b4fc5604a5882efdd
 Description:  A 802.1x authentication client for OpenWrt routers.
  Cross-compiled C version for optimal performance and compatibility.
 
