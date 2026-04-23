@@ -139,3 +139,4 @@ opkg update && opkg install luci-app-zzz
 - [https://github.com/diredocks/zzz](https://github.com/diredocks/zzz)
 - [https://github.com/diredocks/nyn](https://github.com/diredocks/nyn)
 - [https://github.com/bitdust/njit8021xclient](https://github.com/bitdust/njit8021xclient)
+- [https://github.com/Dichgrem/luci-app-zzz](https://github.com/Dichgrem/luci-app-zzz)
